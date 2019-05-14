@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "678886609661",
+    "firebase_url": "https://rx-vs-coroutines.firebaseio.com",
+    "project_id": "rx-vs-coroutines",
+    "storage_bucket": "rx-vs-coroutines.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:678886609661:android:3fdc7e1bee502f5d",
+        "android_client_info": {
+          "package_name": "br.com.dcarv.medicalerta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "678886609661-2ka03m7rhurle8dgih4u623anv1f57va.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.dcarv.medicalerta",
+            "certificate_hash": "a7eae243aa39e8d5489e71f13298dcda391c444e"
+          }
+        },
+        {
+          "client_id": "678886609661-uajhqsljhpvqgf9hk9v9il0g2hcrf228.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC06wEdbo9dK8nECBLrz3GDgTlUidYcHYY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "678886609661-uajhqsljhpvqgf9hk9v9il0g2hcrf228.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
