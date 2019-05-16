@@ -15,10 +15,11 @@ import io.reactivex.SingleEmitter
 import javax.inject.Inject
 
 private const val TAG = "AuthenticationManager"
-private const val RQ_FIREBASE_AUTH = 1
+private const val RQ_FIREBASE_AUTH = 801
 
 class AuthenticationManager @Inject constructor(
-    private val firebaseAuth: FirebaseAuth
+    private val firebaseAuth: FirebaseAuth,
+    private val firebaseUi: AuthUI
 ): Authentication.Manager {
 
     private var pendingAuthentication: SingleEmitter<User>? = null
@@ -32,8 +33,7 @@ class AuthenticationManager @Inject constructor(
             val providers = listOf(AuthUI.IdpConfig.EmailBuilder().build())
             startActivityForResult(
                 activity,
-                AuthUI.getInstance()
-                    .createSignInIntentBuilder()
+                firebaseUi.createSignInIntentBuilder()
                     .setAvailableProviders(providers)
                     .build(),
                 RQ_FIREBASE_AUTH,
@@ -50,8 +50,7 @@ class AuthenticationManager @Inject constructor(
 
             val providers = listOf(AuthUI.IdpConfig.EmailBuilder().build())
             fragment.startActivityForResult(
-                AuthUI.getInstance()
-                    .createSignInIntentBuilder()
+                firebaseUi.createSignInIntentBuilder()
                     .setAvailableProviders(providers)
                     .build(),
                 RQ_FIREBASE_AUTH
