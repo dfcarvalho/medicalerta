@@ -1,4 +1,4 @@
-package br.com.dcarv.medicalerta.common
+package br.com.dcarv.medicalerta.common.authentication
 
 import android.app.Activity
 import android.content.Intent
@@ -6,18 +6,21 @@ import android.util.Log
 import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.fragment.app.Fragment
 import br.com.dcarv.medicalerta.common.model.User
+import br.com.dcarv.medicalerta.common.toModel
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import io.reactivex.Single
 import io.reactivex.SingleEmitter
+import javax.inject.Inject
 
 private const val TAG = "AuthenticationManager"
-private const val RQ_FIREBASE_AUTH = 1
+private const val RQ_FIREBASE_AUTH = 801
 
-class AuthenticationManager : Authentication.Manager {
-
-    private val firebaseAuth = FirebaseAuth.getInstance()
+class AuthenticationManager @Inject constructor(
+    private val firebaseAuth: FirebaseAuth,
+    private val firebaseUi: AuthUI
+): Authentication.Manager {
 
     private var pendingAuthentication: SingleEmitter<User>? = null
 
@@ -30,8 +33,7 @@ class AuthenticationManager : Authentication.Manager {
             val providers = listOf(AuthUI.IdpConfig.EmailBuilder().build())
             startActivityForResult(
                 activity,
-                AuthUI.getInstance()
-                    .createSignInIntentBuilder()
+                firebaseUi.createSignInIntentBuilder()
                     .setAvailableProviders(providers)
                     .build(),
                 RQ_FIREBASE_AUTH,
@@ -40,7 +42,7 @@ class AuthenticationManager : Authentication.Manager {
         }
     }
 
-    fun authenticateIfNecessary(fragment: Fragment): Single<User> {
+    override fun authenticateIfNecessary(fragment: Fragment): Single<User> {
         return firebaseAuth.currentUser?.let {
             Single.just(it.toModel())
         } ?: Single.create<User> { emitter ->
@@ -48,8 +50,7 @@ class AuthenticationManager : Authentication.Manager {
 
             val providers = listOf(AuthUI.IdpConfig.EmailBuilder().build())
             fragment.startActivityForResult(
-                AuthUI.getInstance()
-                    .createSignInIntentBuilder()
+                firebaseUi.createSignInIntentBuilder()
                     .setAvailableProviders(providers)
                     .build(),
                 RQ_FIREBASE_AUTH
