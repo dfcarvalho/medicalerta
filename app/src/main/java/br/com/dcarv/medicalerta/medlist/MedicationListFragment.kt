@@ -10,7 +10,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import br.com.dcarv.medicalerta.R
 import br.com.dcarv.medicalerta.common.di.injector
-import br.com.dcarv.medicalerta.common.showProgressBar
+import br.com.dcarv.medicalerta.common.ui.ErrorMessage
+import br.com.dcarv.medicalerta.common.ui.errorView
+import br.com.dcarv.medicalerta.common.ui.showError
+import br.com.dcarv.medicalerta.common.ui.showProgressBar
 
 private const val TAG = "MedicationListFragment"
 
@@ -50,6 +53,17 @@ class MedicationListFragment: Fragment() {
     private fun observeViewModel() {
         viewModel.showProgressBar.observe(viewLifecycleOwner, Observer {
             showProgressBar = it
+        })
+
+        viewModel.showError.observe(viewLifecycleOwner, Observer { errorMsg ->
+            when (errorMsg) {
+                is ErrorMessage.Displayed -> {
+                    showError(true, errorMsg.message)
+                }
+                is ErrorMessage.Hidden -> {
+                    showError(false)
+                }
+            }
         })
     }
 }
