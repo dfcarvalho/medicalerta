@@ -19,8 +19,9 @@ private const val RQ_FIREBASE_AUTH = 801
 
 class AuthenticationManager @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
-    private val firebaseUi: AuthUI
-): Authentication.Manager {
+    private val firebaseUi: AuthUI,
+    private val userRepository: UserRepository
+) : Authentication.Manager {
 
     private var pendingAuthentication: SingleEmitter<User>? = null
 
@@ -39,7 +40,7 @@ class AuthenticationManager @Inject constructor(
                 RQ_FIREBASE_AUTH,
                 null
             )
-        }
+        }.flatMap { userRepository.saveUser(it).toSingle { it } }
     }
 
     override fun authenticateIfNecessary(fragment: Fragment): Single<User> {
@@ -55,7 +56,7 @@ class AuthenticationManager @Inject constructor(
                     .build(),
                 RQ_FIREBASE_AUTH
             )
-        }
+        }.flatMap { userRepository.saveUser(it).toSingle { it } }
     }
 
     override fun onAuthenticationActivityResult(
