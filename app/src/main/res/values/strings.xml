@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Medicalerta</string>
+
+    <string name="authentication_error_message">Failed to authenticate</string>
 </resources>
