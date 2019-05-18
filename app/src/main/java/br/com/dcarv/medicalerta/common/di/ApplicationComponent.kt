@@ -21,5 +21,5 @@ interface ApplicationComponent {
         fun build(): ApplicationComponent
     }
 
-    fun medicationListViewModelFactory(): ViewModelFactory<MedicationListViewModel>
+    fun medicationListViewModel(): MedicationListViewModel
 }
