@@ -7,22 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import br.com.dcarv.medicalerta.R
 import br.com.dcarv.medicalerta.common.di.injector
 import br.com.dcarv.medicalerta.common.ui.ErrorMessage
-import br.com.dcarv.medicalerta.common.ui.errorView
+import br.com.dcarv.medicalerta.common.ui.hideError
 import br.com.dcarv.medicalerta.common.ui.showError
 import br.com.dcarv.medicalerta.common.ui.showProgressBar
+import br.com.dcarv.medicalerta.common.ui.lazyViewModel
 
 private const val TAG = "MedicationListFragment"
 
 class MedicationListFragment: Fragment() {
 
-    private val viewModel: MedicationListViewModel by lazy {
-        ViewModelProviders.of(this, injector.medicationListViewModelFactory())
-            .get(MedicationListViewModel::class.java)
-    }
+    private val viewModel: MedicationListViewModel by lazyViewModel { injector.medicationListViewModel() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,10 +55,10 @@ class MedicationListFragment: Fragment() {
         viewModel.showError.observe(viewLifecycleOwner, Observer { errorMsg ->
             when (errorMsg) {
                 is ErrorMessage.Displayed -> {
-                    showError(true, errorMsg.message)
+                    showError(errorMsg.message)
                 }
                 is ErrorMessage.Hidden -> {
-                    showError(false)
+                    hideError()
                 }
             }
         })
