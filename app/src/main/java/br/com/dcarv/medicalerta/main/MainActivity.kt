@@ -1,7 +1,8 @@
-package br.com.dcarv.medicalerta
+package br.com.dcarv.medicalerta.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import br.com.dcarv.medicalerta.R
 
 class MainActivity : AppCompatActivity() {
 

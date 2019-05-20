@@ -6,7 +6,7 @@ import br.com.dcarv.medicalerta.RxSchedulersRule
 import br.com.dcarv.medicalerta.common.authentication.Authentication
 import br.com.dcarv.medicalerta.common.messages.Messages
 import br.com.dcarv.medicalerta.common.model.User
-import br.com.dcarv.medicalerta.common.ui.ErrorMessage
+import br.com.dcarv.medicalerta.common.ui.OptionalMessage
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -62,7 +62,7 @@ class MedicationListViewModelTest {
         }
 
         viewModel.showError.observeForever {
-            assertEquals(ErrorMessage.Hidden, it)
+            assertEquals(OptionalMessage.Hidden, it)
         }
     }
 
@@ -82,7 +82,7 @@ class MedicationListViewModelTest {
         }
 
         viewModel.showError.observeForever {
-            assertEquals(ErrorMessage.Displayed(AUTH_ERROR_MSG), it)
+            assertEquals(OptionalMessage.Displayed(AUTH_ERROR_MSG), it)
         }
     }
 }

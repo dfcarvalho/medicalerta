@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="med_item_title_text_size">24sp</dimen>
+    <dimen name="med_item_title_margin_start">16dp</dimen>
+    <dimen name="med_item_title_margin_end">16dp</dimen>
+    <dimen name="med_item_title_margin_top">8dp</dimen>
+
+    <dimen name="med_item_dose_text_size">16sp</dimen>
+    <dimen name="med_item_dose_margin_start">8dp</dimen>
+    <dimen name="med_item_dose_margin_end">8dp</dimen>
+    <dimen name="med_item_dose_margin_top">8dp</dimen>
+    <dimen name="med_item_dose_margin_bottom">8dp</dimen>
+</resources>

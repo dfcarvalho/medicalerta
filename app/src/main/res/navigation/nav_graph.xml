@@ -6,6 +6,19 @@
     <fragment
         android:id="@+id/medicationListFragment"
         android:name="br.com.dcarv.medicalerta.medlist.MedicationListFragment"
-        android:label="MedicationListFragment" />
+        android:label="MedicationListFragment" >
+        <action
+            android:id="@+id/action_medicationListFragment_to_medicationDetailsFragment"
+            app:destination="@id/medicationDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/medicationDetailsFragment"
+        android:name="br.com.dcarv.medicalerta.meddetails.MedicationDetailsFragment"
+        android:label="MedicationDetailsFragment" >
+        <argument
+            android:name="medId"
+            app:argType="string" />
+    </fragment>
 
 </navigation>
