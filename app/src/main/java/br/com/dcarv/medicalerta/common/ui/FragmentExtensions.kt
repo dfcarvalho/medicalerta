@@ -1,5 +1,6 @@
 package br.com.dcarv.medicalerta.common.ui
 
+import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -7,6 +8,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import br.com.dcarv.medicalerta.R
+
+fun <T: Fragment> T.withBundle(args: Bundle) = this.apply { arguments = args }
 
 val Fragment.progressBar: View?
     get() = view?.findViewById(R.id.progressBar)

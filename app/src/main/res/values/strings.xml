@@ -2,4 +2,8 @@
     <string name="app_name">Medicalerta</string>
 
     <string name="authentication_error_message">Failed to authenticate</string>
+
+    <string name="meds_list_empty_message">There are no medications in you list</string>
+    <string name="meds_list_error_message">Failed to obtain medication list</string>
+    <string name="meds_list_item_dose_format">%1s %2s</string>
 </resources>
