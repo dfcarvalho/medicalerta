@@ -6,12 +6,13 @@ import android.util.Log
 import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.fragment.app.Fragment
 import br.com.dcarv.medicalerta.common.model.User
-import br.com.dcarv.medicalerta.common.toModel
+import br.com.dcarv.medicalerta.common.network.toModel
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import io.reactivex.Single
 import io.reactivex.SingleEmitter
+import java.lang.IllegalStateException
 import javax.inject.Inject
 
 private const val TAG = "AuthenticationManager"
@@ -24,6 +25,9 @@ class AuthenticationManager @Inject constructor(
 ) : Authentication.Manager {
 
     private var pendingAuthentication: SingleEmitter<User>? = null
+
+    override val user: User
+        get() = firebaseAuth.currentUser?.toModel() ?: throw IllegalStateException()
 
     override fun authenticateIfNecessary(activity: Activity): Single<User> {
         return firebaseAuth.currentUser?.let {

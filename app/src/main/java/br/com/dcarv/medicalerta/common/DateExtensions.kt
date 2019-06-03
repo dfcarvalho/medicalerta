@@ -4,9 +4,48 @@ import androidx.emoji.text.EmojiCompat
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun Date.format(locale: Locale = Locale.getDefault()): String {
+fun Date.formatTime(locale: Locale = Locale.getDefault()): String {
     val formatter = SimpleDateFormat("HH:mm", locale)
     return formatter.format(this)
+}
+
+fun Date.format(locale: Locale = Locale.getDefault()): String {
+    val formatter = SimpleDateFormat("dd/MM/yyyy HH:mm", locale)
+    return formatter.format(this)
+}
+
+fun Date.setDateOnly(date: Date) {
+    val calendar = Calendar.getInstance()
+    calendar.time = this
+
+    val newDateCalendar = Calendar.getInstance()
+    newDateCalendar.time = date
+
+    val year = newDateCalendar.get(Calendar.YEAR)
+    val month = newDateCalendar.get(Calendar.MONTH)
+    val day = newDateCalendar.get(Calendar.DAY_OF_MONTH)
+
+    calendar.set(Calendar.YEAR, year)
+    calendar.set(Calendar.MONTH, month)
+    calendar.set(Calendar.DAY_OF_MONTH, day)
+
+    time = calendar.timeInMillis
+}
+
+fun Date.setTimeOnly(date: Date) {
+    val calendar = Calendar.getInstance()
+    calendar.time = this
+
+    val newDateCalendar = Calendar.getInstance()
+    newDateCalendar.time = date
+
+    val hour = newDateCalendar.get(Calendar.HOUR_OF_DAY)
+    val minute = newDateCalendar.get(Calendar.MINUTE)
+
+    calendar.set(Calendar.HOUR_OF_DAY, hour)
+    calendar.set(Calendar.MINUTE, minute)
+
+    time = calendar.timeInMillis
 }
 
 val Date.hour: Int

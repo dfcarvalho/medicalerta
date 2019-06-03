@@ -62,6 +62,11 @@ class MedicationListFragment : Fragment() {
         // TODO: handle other requests
     }
 
+    private fun setUpViews() {
+        setUpMedsList()
+        medListAddButton.setOnClickListener { viewModel.onAddMedicationClicked() }
+    }
+
     private fun setUpMedsList() {
         medListRecyclerView.adapter = adapter
         medListRecyclerView.layoutManager = LinearLayoutManager(
@@ -76,12 +81,8 @@ class MedicationListFragment : Fragment() {
 
         viewModel.showError.observe(viewLifecycleOwner, Observer { errorMsg ->
             when (errorMsg) {
-                is OptionalMessage.Displayed -> {
-                    showError(errorMsg.message)
-                }
-                is OptionalMessage.Hidden -> {
-                    hideError()
-                }
+                is OptionalMessage.Displayed -> showError(errorMsg.message)
+                is OptionalMessage.Hidden -> hideError()
             }
         })
 
@@ -93,21 +94,27 @@ class MedicationListFragment : Fragment() {
 
         viewModel.navigateEvents.observe(viewLifecycleOwner, Observer { event ->
             when (event) {
-                is NavigationEvent.MedicationDetails -> {
-                    val action = MedicationListFragmentDirections.actionMedicationListFragmentToMedicationDetailsFragment(event.medId)
-                    findNavController().navigate(action)
-                }
+                is NavigationEvent.MedicationDetails -> navigateToMedicationDetails(event.medId)
+                is NavigationEvent.NewMedication -> navigateToEditMedication()
             }
-
         })
-    }
-
-    private fun setUpViews() {
-        setUpMedsList()
     }
 
     private fun handleListVisibility(isEmpty: Boolean) {
         medListRecyclerView.gone = isEmpty
+        medListAddButton.gone = isEmpty
         medListEmptyMessage.gone = !isEmpty
+    }
+
+    private fun navigateToMedicationDetails(medId: String) {
+        val action = MedicationListFragmentDirections
+            .actionMedicationListFragmentToMedicationDetailsFragment(medId)
+        findNavController().navigate(action)
+    }
+
+    private fun navigateToEditMedication() {
+        val action = MedicationListFragmentDirections
+            .actionMedicationListFragmentToEditMedicationFragment()
+        findNavController().navigate(action)
     }
 }

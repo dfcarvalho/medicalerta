@@ -1,8 +1,9 @@
 package br.com.dcarv.medicalerta.common.authentication
 
-import br.com.dcarv.medicalerta.common.asCompletable
-import br.com.dcarv.medicalerta.common.asSingle
+import br.com.dcarv.medicalerta.common.network.asCompletable
+import br.com.dcarv.medicalerta.common.network.asSingle
 import br.com.dcarv.medicalerta.common.model.User
+import br.com.dcarv.medicalerta.common.network.user
 import com.google.firebase.firestore.FirebaseFirestore
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -13,14 +14,12 @@ class UserRepository @Inject constructor(
 ) {
 
     fun saveUser(user: User): Completable =
-        firebaseDb.collection("users")
-            .document(user.id)
+        firebaseDb.user(user.id)
             .set(user)
             .asCompletable()
 
     fun getUser(id: String): Single<User> =
-        firebaseDb.collection("users")
-            .document(id)
+        firebaseDb.user(id)
             .get()
             .asSingle()
 }

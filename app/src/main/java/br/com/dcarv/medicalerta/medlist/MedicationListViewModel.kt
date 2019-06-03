@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import br.com.dcarv.medicalerta.common.authentication.Authentication
-import br.com.dcarv.medicalerta.common.autoDispose
+import br.com.dcarv.medicalerta.common.disposeWith
 import br.com.dcarv.medicalerta.common.messages.Messages
 import br.com.dcarv.medicalerta.common.model.Medication
 import br.com.dcarv.medicalerta.common.navigation.NavigationEvent
@@ -84,11 +84,15 @@ class MedicationListViewModel @Inject constructor(
                     _medicationList.postValue(it)
                     _showProgressbar.postValue(false)
                 }, {
-                    _errorVisible.postValue(true)
-                    _errorMessage.postValue(messagesRepository.get(Messages.Key.MEDICATION_LIST_ERROR_MESSAGE))
+                    // don't show error, if there's already another error being displayed
+                    if (_errorVisible.value != true) {
+                        _errorVisible.postValue(true)
+                        _errorMessage.postValue(messagesRepository.get(Messages.Key.MEDICATION_LIST_ERROR_MESSAGE))
+                    }
+
                     _showProgressbar.postValue(false)
                 })
-                .autoDispose(disposables)
+                .disposeWith(disposables)
         }
     }
 
@@ -97,7 +101,10 @@ class MedicationListViewModel @Inject constructor(
     }
 
     fun onMedicationClicked(med: Medication) {
-        Log.d(TAG, "Medication clicked: $med")
         navigateEvents.postValue(NavigationEvent.MedicationDetails(med.id))
+    }
+
+    fun onAddMedicationClicked() {
+        navigateEvents.postValue(NavigationEvent.NewMedication)
     }
 }

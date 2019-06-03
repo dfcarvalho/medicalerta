@@ -12,6 +12,7 @@ import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
+import io.reactivex.Completable
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -23,13 +24,16 @@ private const val USER_NAME = "USER_NAME"
 class AuthenticationManagerTest {
 
     @MockK
-    lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var firebaseAuth: FirebaseAuth
 
     @MockK
-    lateinit var firebaseUi: AuthUI
+    private lateinit var firebaseUi: AuthUI
+
+    @MockK
+    private lateinit var userRepository: UserRepository
 
     @InjectMockKs
-    lateinit var authManager: AuthenticationManager
+    private lateinit var authManager: AuthenticationManager
 
     @Before
     fun setUp() {
@@ -64,6 +68,8 @@ class AuthenticationManagerTest {
         every { firebaseUser.email } returns USER_EMAIL
         every { firebaseUser.displayName } returns USER_NAME
         every { firebaseAuth.currentUser } returnsMany listOf(null, firebaseUser)
+        val user = User(USER_ID, USER_EMAIL, USER_NAME)
+        every { userRepository.saveUser(user) } returns Completable.complete()
 
         val activity = mockk<Activity>(relaxed = true)
 
@@ -79,7 +85,7 @@ class AuthenticationManagerTest {
         authManager.onAuthenticationActivityResult(801, Activity.RESULT_OK, null)
 
         // then
-        val user = User(USER_ID, USER_EMAIL, USER_NAME)
+
         testObserver.assertNoErrors()
         testObserver.assertValue(user)
     }
@@ -112,6 +118,8 @@ class AuthenticationManagerTest {
         every { firebaseUser.email } returns USER_EMAIL
         every { firebaseUser.displayName } returns USER_NAME
         every { firebaseAuth.currentUser } returnsMany listOf(null, firebaseUser)
+        val user = User(USER_ID, USER_EMAIL, USER_NAME)
+        every { userRepository.saveUser(user) } returns Completable.complete()
 
         val fragment = mockk<Fragment>(relaxed = true)
 
@@ -127,7 +135,6 @@ class AuthenticationManagerTest {
         authManager.onAuthenticationActivityResult(801, Activity.RESULT_OK, null)
 
         // then
-        val user = User(USER_ID, USER_EMAIL, USER_NAME)
         testObserver.assertNoErrors()
         testObserver.assertValue(user)
     }
