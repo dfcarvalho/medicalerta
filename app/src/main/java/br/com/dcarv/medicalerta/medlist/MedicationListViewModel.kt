@@ -76,7 +76,7 @@ class MedicationListViewModel @Inject constructor(
                     _errorVisible.postValue(true)
                     _errorMessage.postValue(messagesRepository.get(Messages.Key.AUTHENTICATION_ERROR_MESSAGE))
                 }
-                .flatMap { medicationListRepository.getMedsList(it) }
+                .flatMap { medicationListRepository.getMedsList() }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

@@ -56,10 +56,11 @@ class MedicationListViewModelTest {
         val fragment = mockk<Fragment>(relaxed = true)
         val user = User(USER_ID, USER_EMAIL, USER_NAME)
         every { authManager.authenticateIfNecessary(fragment) } returns Single.just(user)
+        every { authManager.getUserId() } returns Single.just(USER_ID)
         val meds = listOf(
             Medication("MED_ID", "MED_NAME", Date())
         )
-        every { medicationListRepository.getMedsList(user) } returns Single.just(meds)
+        every { medicationListRepository.getMedsList() } returns Single.just(meds)
 
         // when
         viewModel.onActivityCreated(fragment)

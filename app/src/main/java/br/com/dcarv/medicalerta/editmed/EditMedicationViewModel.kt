@@ -25,7 +25,6 @@ import javax.inject.Inject
 private const val TAG = "EditMedicationViewModel"
 
 class EditMedicationViewModel @Inject constructor(
-    private val authManager: Authentication.Manager,
     private val messagesRepository: MessagesRepository,
     private val medicationRepository: MedicationRepository
 ) : ViewModel() {
@@ -93,7 +92,7 @@ class EditMedicationViewModel @Inject constructor(
             nextDose = medicationNextDose.value ?: Date()
         )
 
-        medicationRepository.saveMedication(authManager.user.id, med)
+        medicationRepository.saveMedication(med)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { _showProgressbar.postValue(true) }
@@ -111,7 +110,7 @@ class EditMedicationViewModel @Inject constructor(
 
     private fun loadMedData(medId: String?) {
         if (medId != null) {
-            medicationRepository.getMedication(authManager.user.id, medId)
+            medicationRepository.getMedication(medId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

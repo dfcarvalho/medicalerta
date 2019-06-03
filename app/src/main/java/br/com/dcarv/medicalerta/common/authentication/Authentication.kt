@@ -12,6 +12,8 @@ interface Authentication {
 
         val user: User
 
+        fun getUserId(): Single<String>
+
         fun authenticateIfNecessary(activity: Activity): Single<User>
 
         fun authenticateIfNecessary(fragment: Fragment): Single<User>
