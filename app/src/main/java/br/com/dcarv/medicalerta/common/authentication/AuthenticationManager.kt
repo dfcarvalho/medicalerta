@@ -27,7 +27,11 @@ class AuthenticationManager @Inject constructor(
     private var pendingAuthentication: SingleEmitter<User>? = null
 
     override val user: User
-        get() = firebaseAuth.currentUser?.toModel() ?: throw IllegalStateException()
+        get() = firebaseAuth.currentUser?.toModel() ?: throw NotAuthenticatedException()
+
+    override fun getUserId(): Single<String> {
+        return Single.fromCallable { user.id }
+    }
 
     override fun authenticateIfNecessary(activity: Activity): Single<User> {
         return firebaseAuth.currentUser?.let {
