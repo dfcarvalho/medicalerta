@@ -3,6 +3,8 @@ package br.com.dcarv.medicalerta.common.di
 import android.content.Context
 import br.com.dcarv.medicalerta.common.authentication.AuthenticationModule
 import br.com.dcarv.medicalerta.common.messages.MessagesModule
+import br.com.dcarv.medicalerta.common.network.FirebaseModule
+import br.com.dcarv.medicalerta.editmed.EditMedicationViewModel
 import br.com.dcarv.medicalerta.meddetails.MedicationDetailsViewModel
 import br.com.dcarv.medicalerta.medlist.MedicationListViewModel
 import dagger.BindsInstance
@@ -24,4 +26,5 @@ interface ApplicationComponent {
 
     fun medicationListViewModel(): MedicationListViewModel
     fun medicationDetailsViewModel(): MedicationDetailsViewModel
+    fun editMedicationViewModel(): EditMedicationViewModel
 }

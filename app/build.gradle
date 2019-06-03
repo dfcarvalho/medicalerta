@@ -44,6 +44,7 @@ dependencies {
   implementation 'androidx.emoji:emoji:1.0.0'
   implementation 'androidx.emoji:emoji-appcompat:1.0.0'
   implementation 'androidx.emoji:emoji-bundled:1.0.0'
+  implementation 'com.google.android.material:material:1.1.0-alpha06'
 
   implementation 'androidx.legacy:legacy-support-v4:1.0.0'
   implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'

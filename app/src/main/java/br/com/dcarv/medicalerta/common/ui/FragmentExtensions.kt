@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import br.com.dcarv.medicalerta.R
+import br.com.dcarv.medicalerta.common.di.injector
 
 fun <T: Fragment> T.withBundle(args: Bundle) = this.apply { arguments = args }
 
@@ -47,3 +48,15 @@ inline fun <reified T: ViewModel> Fragment.lazyViewModel(
         override fun <T: ViewModel> create(modelClass: Class<T>) = provider() as T
     }
 }
+
+inline fun <reified T: ViewModel> Fragment.lazyParentFragmentViewModel(
+    crossinline provider: () -> T
+) = viewModels<T>(
+    ownerProducer = { requireParentFragment() },
+    factoryProducer = {
+        object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T = provider() as T
+        }
+    }
+)

@@ -10,6 +10,8 @@ interface Authentication {
 
     interface Manager {
 
+        val user: User
+
         fun authenticateIfNecessary(activity: Activity): Single<User>
 
         fun authenticateIfNecessary(fragment: Fragment): Single<User>

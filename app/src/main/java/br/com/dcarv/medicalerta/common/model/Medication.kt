@@ -1,9 +1,9 @@
 package br.com.dcarv.medicalerta.common.model
 
-import java.util.*
+import java.util.Date
 
 data class Medication(
-    val id: String = "",
-    val name: String = "",
-    val nextDose: Date = Date(0)
+    val id: String,
+    val name: String,
+    val nextDose: Date
 )

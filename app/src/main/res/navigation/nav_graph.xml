@@ -10,6 +10,9 @@
         <action
             android:id="@+id/action_medicationListFragment_to_medicationDetailsFragment"
             app:destination="@id/medicationDetailsFragment" />
+        <action
+            android:id="@+id/action_medicationListFragment_to_editMedicationFragment"
+            app:destination="@id/editMedicationFragment" />
     </fragment>
 
     <fragment
@@ -19,6 +22,17 @@
         <argument
             android:name="medId"
             app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editMedicationFragment"
+        android:name="br.com.dcarv.medicalerta.editmed.EditMedicationFragment"
+        android:label="EditMedicationFragment" >
+        <argument
+            android:name="medId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 
 </navigation>

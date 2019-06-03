@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import br.com.dcarv.medicalerta.R
 import br.com.dcarv.medicalerta.common.emoji
-import br.com.dcarv.medicalerta.common.format
+import br.com.dcarv.medicalerta.common.formatTime
 import br.com.dcarv.medicalerta.common.model.Medication
 import br.com.dcarv.medicalerta.common.ui.gone
 import io.reactivex.Single
@@ -45,7 +45,7 @@ class MedicationListAdapter(
                 medListItemNextDose.text = context.getString(
                     R.string.meds_list_item_dose_format,
                     timeEmoji,
-                    med.nextDose.format()
+                    med.nextDose.formatTime()
                 )
                 medListItemNextDose.gone = false
             } else {

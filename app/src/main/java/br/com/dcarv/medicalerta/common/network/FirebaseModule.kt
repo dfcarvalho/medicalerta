@@ -1,4 +1,4 @@
-package br.com.dcarv.medicalerta.common.di
+package br.com.dcarv.medicalerta.common.network
 
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth

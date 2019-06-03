@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Medicalerta</string>
 
+    <string name="generic_error_message">Something went wrong. Please try again.</string>
+
     <string name="authentication_error_message">Failed to authenticate</string>
 
     <string name="meds_list_empty_message">There are no medications in you list</string>
